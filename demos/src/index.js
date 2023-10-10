@@ -7,8 +7,8 @@ function multiply(a, b) {
 }
 
 function divide(a, b) {
-  if(b==0){
-    return null
+  if (b === 0) {
+    return null;
   }
   return a / b;
 }
@@ -19,4 +19,6 @@ function calcularPesoEnOtroPlaneta(peso, gravedadPlaneta) {
   const pesoEnOtroPlaneta = peso * gravedadPlaneta;
   return pesoEnOtroPlaneta;
 }
-module.exports = {sum,multiply,divide, calcularPesoEnOtroPlaneta};
+module.exports = {
+  sum, multiply, divide, calcularPesoEnOtroPlaneta,
+};
