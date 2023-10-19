@@ -14,13 +14,17 @@ const fakeBooks = [
     name: 'Lord of the rings',
   },
 ];
+const mockSpyGetAll = jest.fn();
 
-const mongoLibStub = {
-  getAll: () => [...fakeBooks],
+// const mongoLibStub = {
+//   getAll: mockSpyGetAll,
+//   create: () => {},
+// };
+
+jest.mock('../lib/mongo.lib', () => jest.fn().mockImplementation(() => ({
+  getAll: mockSpyGetAll,
   create: () => {},
-};
-
-jest.mock('../lib/mongo.lib', () => jest.fn().mockImplementation(() => mongoLibStub));
+})));
 describe('Pruebas para book service', () => {
   let services;
   beforeEach(() => {
@@ -31,11 +35,13 @@ describe('Pruebas para book service', () => {
 
   describe('Mthod getBooks', () => {
     // Arrange
+    mockSpyGetAll.mockResolvedValue(fakeBooks);
     // Act
     test('Should return an array of books', async () => {
       const booksResponse = await services.getBooks({});
-      console.log(booksResponse);
       expect(booksResponse.length).toEqual(2);
+      expect(mockSpyGetAll).toHaveBeenCalled();
+      expect(mockSpyGetAll).toHaveBeenCalledWith('books', {});
       // Assert
     });
   });
