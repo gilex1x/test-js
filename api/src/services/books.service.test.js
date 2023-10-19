@@ -1,25 +1,21 @@
 const BooksService = require('./books.service');
+const { generateOneBook, generateManyBooks } = require('../fakes/book');
 
-const fakeBooks = [
-  {
-    _id: {
-      $oid: '652b2da6811167ed66e5e48a',
-    },
-    name: 'Harry Potter',
-  },
-  {
-    _id: {
-      $oid: '652b2e0c811167ed66e5e48b',
-    },
-    name: 'Lord of the rings',
-  },
-];
+// const fakeBooks = [
+//   {
+//     _id: {
+//       $oid: '652b2da6811167ed66e5e48a',
+//     },
+//     name: 'Harry Potter',
+//   },
+//   {
+//     _id: {
+//       $oid: '652b2e0c811167ed66e5e48b',
+//     },
+//     name: 'Lord of the rings',
+//   },
+// ];
 const mockSpyGetAll = jest.fn();
-
-// const mongoLibStub = {
-//   getAll: mockSpyGetAll,
-//   create: () => {},
-// };
 
 jest.mock('../lib/mongo.lib', () => jest.fn().mockImplementation(() => ({
   getAll: mockSpyGetAll,
@@ -35,11 +31,12 @@ describe('Pruebas para book service', () => {
 
   describe('Mthod getBooks', () => {
     // Arrange
+    const fakeBooks = generateManyBooks(10);
     mockSpyGetAll.mockResolvedValue(fakeBooks);
     // Act
     test('Should return an array of books', async () => {
       const booksResponse = await services.getBooks({});
-      expect(booksResponse.length).toEqual(2);
+      expect(booksResponse.length).toEqual(10);
       expect(mockSpyGetAll).toHaveBeenCalled();
       expect(mockSpyGetAll).toHaveBeenCalledWith('books', {});
       // Assert
