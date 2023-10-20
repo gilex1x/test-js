@@ -1,8 +1,9 @@
-const request = require("supertest");
+/* eslint-disable import/no-extraneous-dependencies */
+const request = require('supertest');
 
-const createApp = require("../app");
+const createApp = require('../app');
 
-describe("Test for hello server", () => {
+describe('Test for hello server', () => {
   let app = null;
   let server = null;
   beforeAll(() => {
@@ -11,15 +12,13 @@ describe("Test for hello server", () => {
   });
 
   // Test here
-  describe("Test for [GET]", () => {
-    test("Should return hello world!", () => {
-      return request(app)
-        .get("/")
-        .expect(200)
-        .then((response) => {
-          expect(response.text).toEqual("Hello World!");
-        });
-    });
+  describe('Test for [GET]', () => {
+    test('Should return hello world!', () => request(app)
+      .get('/')
+      .expect(200)
+      .then((response) => {
+        expect(response.text).toEqual('Hello World!');
+      }));
   });
   afterAll(async () => {
     await server.close();

@@ -1,7 +1,7 @@
 const falso = require("@ngneat/falso");
 
 const generateOneBook = () => ({
-  _id: falso.randUuid({ length: 5 }),
+  _id: falso.randUuid(),
   name: falso.randProductName(),
 });
 
